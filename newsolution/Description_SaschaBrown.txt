@@ -1,0 +1,95 @@
+1) 'Classification_SaschaBrown_xgboost.csv'
+algorithm: XGboost, descision tree
+hyper parameter optimazation: randomsearch over a grid with param_grid = {
+        'max_depth': [2, 5,  9, 15, 20],
+        'n_estimators': [10, 20 ,30, 50]}
+objective: Binary logistic
+scoring: accuracy
+optimal model:
+Feature importance shap values and permutation importance. 20 variables were removed at a time
+own evaluation: reasonably good with accuracy 97. both shap
+and permutation gave same values
+
+2) 'Classification_SaschaBrown_RandomForest.csv'
+algorithm: sklearn, random forest
+hyperparameter optimization: baysian optimzation
+Feature importance shap values and permutation importance. 20 variables were removed at a time
+param_grid = {
+        'max_depth': [2, 5,  9, 15, 20],
+        'n_estimators': [10, 20 ,30, 50]}
+feature importance with permutation importance
+own evaluation: decent, but more of the hyperparameter space 
+could have been used
+	'
+3)'Classification_SaschaBrown_NeuralNetwork.csv'
+algorithm tensor flow, neural network 
+hyperparameters optimization, keras tuner, hyperband
+ parameters{16-256 nodes, step 16
+	depth 2-10}
+Feature importance shap values and permutation importance. 20 variables were removed at a time
+optimizer: adam
+loss: binary_crossentropy
+metric: accuracy 
+own evalutation: A lot of time to run, and worse results
+
+4 'Regression_SaschaBrown_RandomForest.csv'
+algorithm Xgb boost random forest.
+Hyperparameters found by baysianseatchCV, with parameters in the following range
+BayesSearchCV(
+            estimator=xgb_model,
+            search_spaces={
+                'n_estimators': (10, 100),
+                'max_depth': (3, 15),
+                'learning_rate': (0.01, 0.3, 'log-uniform'),
+                'subsample': (0.6, 1.0),
+                'gamma': (0, 5)
+parameters reduction with permutation inportance
+own evaluation: quite bad performance
+
+5) Regression_SaschaBrown_tensorflow_VariableList.csv
+algoritm tensor flow.
+hyperparameters optimization, keras tuner, hyperband
+parameters{16-256 nodes, step 16, depth 2-10, learningrate 10^-4 - 1}
+permutation importance used with 10 repeats, with scoring 'neg_mean_absolute_error'
+loss: mean absolute error
+optimizer adam
+own evalutation: decent to bad, if my computer had not crashed, a better result could have been achieved.
+
+6) 'Regression_SaschaBrown_Neural_Sklearn.csv'
+MLPRegresser; scoring; neg_mean_absolute_error
+hyper paramters: Randomized search
+param_distributions = {
+    'hidden_layer_sizes': [(randint(16, 256).rvs(),) for _ in range(2, 10)],
+    'activation': ['relu'],
+    'solver': ['adam'],
+    'learning_rate_init': uniform(1e-4, 1),
+    'alpha': uniform(1e-5, 1e-3),
+Good performance
+}
+feature importance is the sklearn best_model_coef 
+7) 'Clustering_SaschaBrown_skmean.csv'
+algorithm skmean; 6 clusters was, this was found by
+using siluette score. further brute force and variable visualization was used. 
+features: the 20 best features from the classification
+of electrons was used. With 100 trials 10 of these features
+were chosen and silutte score was used. The 10 best of these were then chosen and the most commen names used for clustering with 10
+features. 
+8)  'Clustering_SaschaBrown_agglomorate.csv'
+algorithm skmean; 6 clusters was, this was found by
+using siluette score. further brute force and variable visualization was used. 
+features: the 20 best features from the classification
+of electrons was used. With 100 trials 10 of these features
+were chosen and silutte score was used. The 10 best of these were then chosen and the most commen names used for clustering with 10
+features. 
+9)'Clustering_SaschaBrown_dbscan.csv'
+algorithm dbscan, minimum samples of 15, 20, 100, 400 . minimum samples of 100 and 400 only gave 2 clusters. while 15 and 20 gave in the desired range. 15 had many small cluster, while 20 had a few bigger clusters. different epsillons in  the range 0.01 - 1 was tried. 0.08 gave a good silluette score and did not give many small clusters. But who know may small clusters are good
+the 20 best features from the classification
+of electrons was used. With 100 trials 10 of these features
+were chosen and silutte score was used. The 10 best of these were then chosen and the most commen names used for clustering with 10
+features
+
+
+
+
+
+
